@@ -1,6 +1,7 @@
 package com.certi.demo.service.impl;
 
 import com.certi.demo.service.NumeroPorExtensoService;
+import com.certi.demo.util.NumeroParaExtensoConversor;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,6 +40,18 @@ public class NumeroPorExtensoServiceImpl implements NumeroPorExtensoService {
             case 9: numeroExtenso = "nove"; break;
             case 10: numeroExtenso = "dez"; break;
             default: numeroExtenso = null;
+        }
+
+        if(numeroExtenso == null){
+            NumeroParaExtensoConversor conversor = new NumeroParaExtensoConversor();
+
+            //checar se o número informado é negativo
+            if(numeroEntrada < 0){
+                numeroExtenso = "menos ";
+            } else {
+                numeroExtenso = "";
+            }
+            numeroExtenso += conversor.getExtenso(""+Math.abs(numeroEntrada));
         }
 
         return numeroExtenso;
